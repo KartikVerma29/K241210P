@@ -38,8 +38,7 @@ export default function Widgets({ artistID }) {
 
   return (
     <div className="widgets-body flex">
-      <WidgetCard title="Similar Artists" similar={similar} />
-      <WidgetCard title="Made For You" featured={featured} />
+     
       <WidgetCard title="New Releases" newRelease={newRelease} />
     </div>
   );
