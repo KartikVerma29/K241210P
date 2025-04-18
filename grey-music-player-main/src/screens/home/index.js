@@ -37,11 +37,11 @@ export default function Home() {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Library />} />
+          <Route path="/callback" element={<AuthCallback />} /> {/* Add the callback route */}
           <Route path="/feed" element={<Feed />} />
           <Route path="/trending" element={<Trending />} />
           <Route path="/player" element={<Player />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/callback" element={<AuthCallback />} /> {/* Add the callback route */}
         </Routes>
       </div>
     </Router>
