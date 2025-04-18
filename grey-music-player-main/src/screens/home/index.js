@@ -32,19 +32,11 @@ export default function Home() {
   return !token ? (
     <Login />
   ) : (
-<<<<<<< HEAD
-    <Router>
-=======
     <Router future={{v7_startTransition:true, v7_relativeSplatPath: true}}>
->>>>>>> parent of fec401c (trying to connect ngrok, api and project)
       <div className="main-body">
         <Sidebar />
         <Routes>
           <Route path="/" element={<Library />} />
-<<<<<<< HEAD
-          <Route path="/callback" element={<AuthCallback />} /> {/* Add the callback route */}
-=======
->>>>>>> parent of fec401c (trying to connect ngrok, api and project)
           <Route path="/feed" element={<Feed />} />
           <Route path="/trending" element={<Trending />} />
           <Route path="/player" element={<Player />} />

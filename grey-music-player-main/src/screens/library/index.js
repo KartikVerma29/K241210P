@@ -36,7 +36,22 @@ export default function Library() {
       .catch((err) => console.error("New Releases Error", err));
   }, []);
 
+  // Fetch tracks for a specific playlist and get preview URL
+  const fetchPlaylistTracks = (playlistId) => {
+    APIKit.get(`playlists/${playlistId}/tracks`)
+      .then((response) => {
+        const tracks = response?.data?.items || [];
+        const tracksWithPreview = tracks.map((trackItem) => ({
+          name: trackItem.track.name,
+          preview_url: trackItem.track.preview_url,
+        }));
+        console.log("Tracks with Preview URL:", tracksWithPreview);
+      })
+      .catch((error) => console.error("Error fetching playlist tracks:", error));
+  };
+
   const playPlaylist = (id) => {
+    fetchPlaylistTracks(id);  // Fetch tracks for preview URL
     navigate("/player", { state: { id: id } });
   };
 
