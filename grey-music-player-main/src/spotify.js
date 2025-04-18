@@ -2,7 +2,7 @@ import axios from "axios";
 
 const authEndpoint = "https://accounts.spotify.com/authorize?";
 const clientId = "8065d3363f134aa687436320d7165f6d";
-const redirectUri = "https://e8e0-202-89-79-43.ngrok-free.app/callback";
+const redirectUri = "https://48ff-202-89-79-43.ngrok-free.app/callback"; // Your redirect URI
 const scopes = [
   "user-read-private",
   "user-read-email",
