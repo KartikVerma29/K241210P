@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/App.js
 import React, { useEffect } from "react";
 import {
@@ -52,5 +53,15 @@ export default function App() {
         />
       </Routes>
     </Router>
+=======
+import React from "react";
+import Home from "./screens/home";
+
+export default function App() {
+  return (
+    <div>
+      <Home />
+    </div>
+>>>>>>> parent of fec401c (trying to connect ngrok, api and project)
   );
 }
