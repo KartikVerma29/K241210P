@@ -1,13 +1,9 @@
 import axios from "axios";
 
 const authEndpoint = "https://accounts.spotify.com/authorize?";
-<<<<<<< HEAD
-const clientId = "8065d3363f134aa687436320d7165f6d";
-const redirectUri = "https://48ff-202-89-79-43.ngrok-free.app/callback"; // Your redirect URI
-=======
 const clientId = "57ec545da9ef4d239a8efd565a192315";
 const redirectUri = "http://localhost:3000";
->>>>>>> parent of fec401c (trying to connect ngrok, api and project)
+
 const scopes = [
   "user-read-private",
   "user-read-email",
