@@ -8,7 +8,7 @@ import Feed from "../feed";
 import Library from "../library";
 import Player from "../player";
 import Trending from "../trending";
-import Callback from "../auth/AuthCallback"; // Import the Callback component
+import AuthCallback from "../auth/AuthCallback"; // Import the Callback component
 import "./home.css";
 
 export default function Home() {
@@ -41,7 +41,7 @@ export default function Home() {
           <Route path="/trending" element={<Trending />} />
           <Route path="/player" element={<Player />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/callback" element={<Callback />} /> {/* Add the callback route */}
+          <Route path="/callback" element={<AuthCallback />} /> {/* Add the callback route */}
         </Routes>
       </div>
     </Router>
