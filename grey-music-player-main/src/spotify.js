@@ -30,8 +30,8 @@ export const setClientToken = (token) => {
     }
 
     // Log the request URL and token for debugging
-    console.log("Requesting URL:", config.url);
-    console.log("Using token:", token);
+    // console.log("Requesting URL:", config.url);
+    // console.log("Using token:", token);
 
     config.headers.Authorization = "Bearer " + token;
     return config;
