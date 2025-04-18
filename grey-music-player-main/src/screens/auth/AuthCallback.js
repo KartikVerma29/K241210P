@@ -1,28 +1,20 @@
-import { useEffect } from "react";
+// src/auth/AuthCallback.js
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { setClientToken } from "../../spotify";
 
-const AuthCallback = () => {
+export default function AuthCallback() {
   const navigate = useNavigate();
-
   useEffect(() => {
-    const hash = window.location.hash;
-    const token = hash
-      ?.substring(1)
-      .split("&")
-      .find((item) => item.startsWith("access_token"))
-      ?.split("=")[1];
-
+    const hash = window.location.hash.substring(1);
+    const token = new URLSearchParams(hash).get("access_token");
     if (token) {
       localStorage.setItem("token", token);
       setClientToken(token);
-      navigate("/feed"); // or your default home page
+      navigate("/feed");  // or your default protected route
     } else {
-      navigate("/");
+      navigate("/login");
     }
   }, [navigate]);
-
-  return <div>Logging in...</div>;
-};
-
-export default AuthCallback;
+  return <div>Logging in…</div>;
+}
