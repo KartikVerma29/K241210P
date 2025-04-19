@@ -3,6 +3,7 @@ import "./audioPlayer.css";
 import Controls from "./controls";
 import ProgressCircle from "./progressCircle";
 import WaveAnimation from "./waveAnimation";
+import getYoutubeVideo from "../../utils/getYoutubeVideo";
 
 export default function AudioPLayer({
   currentTrack,
