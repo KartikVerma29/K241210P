@@ -8,7 +8,7 @@ export default function Queue({ tracks, setCurrentIndex }) {
         <p className="upNext">Up Next</p>
         <div className="queue-list">
           {tracks?.map((item, index) => {
-            const trackName = item?.track?.name || "Unknown Title";
+            const trackName = item?.track?.name|| item?.name || "Unknown Title";
             return (
               <div
                 key={index + "-track"}
