@@ -3,14 +3,11 @@ import APIKit from "../../spotify";
 import { IconContext } from "react-icons";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import WidgetCard from "../../components/widgets/widgetCard";
 import "./library.css";
 
 export default function Library() {
   const [playlists, setPlaylists] = useState([]);
-  const [similar, setSimilar] = useState([]);
-  const [featured, setFeatured] = useState([]);
-  const [newRelease, setNewRelease] = useState([]);
+
 
   const navigate = useNavigate();
 
@@ -29,6 +26,7 @@ export default function Library() {
     APIKit.get(`playlists/${playlistId}/tracks`)
       .then((response) => {
         const tracks = response?.data?.items || [];
+        console.log("Fetched tracks:", tracks);
         const tracksWithPreview = tracks.map((trackItem) => ({
           name: trackItem.track.name,
           preview_url: trackItem.track.preview_url,

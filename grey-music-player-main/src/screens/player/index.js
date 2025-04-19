@@ -6,6 +6,7 @@ import SongCard from "../../components/songCard";
 import Queue from "../../components/queue";
 import AudioPLayer from "../../components/audioPlayer/index";
 import Widgets from "../../components/widgets";
+import getYoutubeVideo from "../../utils/getYoutubeVideo";
 
 export default function Player() {
   const location = useLocation();
@@ -45,6 +46,18 @@ export default function Player() {
   useEffect(() => {
     setCurrentTrack(tracks[currentIndex] || null);
   }, [currentIndex, tracks]);
+
+  useEffect(() => {
+    const testSearch = async () => {
+      if (currentTrack?.name && currentTrack?.artists?.[0]?.name) {
+        const query = `${currentTrack.name} ${currentTrack.artists[0].name}`;
+        const videoId = await getYoutubeVideo(query);
+        console.log("YT Video ID:", videoId);
+      }
+    };
+    testSearch();
+  }, [currentTrack]);
+  
 
   return (
     <div className="screen-container flex">
