@@ -10,22 +10,7 @@ export default function Widgets({ artistID }) {
 
   useEffect(() => {
     if (artistID) {
-      apiClient
-        .get(`/artists/${artistID}/related-artists`)
-        .then((res) => {
-          const a = res.data?.artists.slice(0, 3);
-          setSimilar(a);
-        })
-        .catch((err) => console.error(err));
-
-      apiClient
-        .get(`/browse/featured-playlists`)
-        .then((res) => {
-          const a = res.data?.playlists.items.slice(0, 3);
-          setFeatured(a);
-        })
-        .catch((err) => console.error(err));
-
+      
       apiClient
         .get(`/browse/new-releases`)
         .then((res) => {

@@ -20,20 +20,8 @@ export default function Library() {
       .then((response) => setPlaylists(response?.data?.items || []))
       .catch((error) => console.error("Error fetching playlists:", error));
 
-    // Fetch top artists
-    APIKit.get("me/top/artists?limit=5")
-      .then((res) => setSimilar(res?.data?.items || []))
-      .catch((err) => console.error("Top Artists Error", err));
-
-    // Fetch featured playlists
-    APIKit.get("browse/featured-playlists?limit=5")
-      .then((res) => setFeatured(res?.data?.playlists?.items || []))
-      .catch((err) => console.error("Featured Playlists Error", err));
-
-    // Fetch new releases
-    APIKit.get("browse/new-releases?limit=5")
-      .then((res) => setNewRelease(res?.data?.albums?.items || []))
-      .catch((err) => console.error("New Releases Error", err));
+   
+   
   }, []);
 
   // Fetch tracks for a specific playlist and get preview URL
@@ -83,10 +71,7 @@ export default function Library() {
           <div className="no-playlists">Loading playlists or none found.</div>
         )}
 
-        {/* 🔥 Add WidgetCard Components Here */}
-        <WidgetCard title="Top Artists" similar={similar} />
-        <WidgetCard title="Featured Playlists" featured={featured} />
-        <WidgetCard title="New Releases" newRelease={newRelease} />
+      
       </div>
     </div>
   );

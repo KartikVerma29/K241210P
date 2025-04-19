@@ -14,7 +14,6 @@ export default function AudioPLayer({
   const [trackProgress, setTrackProgress] = useState(0);
 
   const audioSrc = currentTrack?.preview_url || "";
-  console.log("Track Preview URL:", currentTrack?.preview_url);
 
 
 
