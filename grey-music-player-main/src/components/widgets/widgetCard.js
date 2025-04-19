@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 import { FiChevronRight } from "react-icons/fi";
 
 export default function WidgetCard({ title, similar = [], featured = [], newRelease = [] }) {
-  console.log("similar", similar, "featured", featured, "newRelease", newRelease);
+  // console.log("similar", similar, "featured", featured, "newRelease", newRelease);
 
   const renderEntries = () => {
     if (similar.length > 0) {
@@ -19,16 +19,7 @@ export default function WidgetCard({ title, similar = [], featured = [], newRele
       ));
     }
 
-    if (featured.length > 0) {
-      return featured.map((playlist) => (
-        <WidgetEntry
-          key={playlist?.id || playlist?.name}
-          title={playlist?.name}
-          subtitle={`${playlist?.tracks?.total || 0} Songs`}
-          image={playlist?.images?.[0]?.url}
-        />
-      ));
-    }
+    
 
     if (newRelease.length > 0) {
       return newRelease.map((album) => (
