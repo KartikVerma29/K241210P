@@ -8,7 +8,6 @@ import Feed from "../feed";
 import Library from "../library";
 import Player from "../player";
 import Trending from "../trending";
-import AuthCallback from "../auth/AuthCallback"; // Import the Callback component
 import "./home.css";
 
 export default function Home() {

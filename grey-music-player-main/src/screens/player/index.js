@@ -16,7 +16,7 @@ export default function Player() {
   useEffect(() => {
     const fetchTracks = async () => {
       try {
-        const res = await apiClient.get("playlists/" + location.state.id + "/tracks", {
+        const res = await apiClient.get("playlists/" + location.state?.id + "/tracks", {
           params: {
             market: "from_token",
             limit: 50,
@@ -40,7 +40,7 @@ export default function Player() {
       }
     };
     fetchTracks();
-  }, []);
+  }, [location.state]);
 
   useEffect(() => {
     setCurrentTrack(tracks[currentIndex] || null);

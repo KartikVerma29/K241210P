@@ -4,8 +4,8 @@ import apiClient from "../../spotify";
 import WidgetCard from "./widgetCard";
 
 export default function Widgets({ artistID }) {
-  const [similar, setSimilar] = useState([]);
-  const [featured, setFeatured] = useState([]);
+  const [ setSimilar] = useState([]);
+  const [ setFeatured] = useState([]);
   const [newRelease, setNewRelease] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Widgets({ artistID }) {
         })
         .catch((err) => console.error(err));
     }
-  }, [artistID]);
+  }, [artistID, setFeatured, setSimilar]);
 
   return (
     <div className="widgets-body flex">
