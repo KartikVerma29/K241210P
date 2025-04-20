@@ -12,10 +12,10 @@ export default function Player() {
   const [tracks, setTracks] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  
+  
   useEffect(() => {
     const loadTracks = async () => {
-      // If enhanced tracks were passed from library
       if (location.state?.tracks) {
         setTracks(location.state.tracks);
         setCurrentTrack(location.state.tracks[0]);
@@ -50,6 +50,7 @@ export default function Player() {
   useEffect(() => {
     setCurrentTrack(tracks[currentIndex] || null);
   }, [currentIndex, tracks]);
+  console.log("Current Track:", currentTrack);
 
   return (
     <div className="screen-container flex">
@@ -66,7 +67,7 @@ export default function Player() {
         )}
       </div>
       <div className="right-player-body">
-        {currentTrack?.album && <SongCard album={currentTrack.album} />}
+        <SongCard album={currentTrack?.album} />
         <Queue tracks={tracks} setCurrentIndex={setCurrentIndex} />
       </div>
     </div>
