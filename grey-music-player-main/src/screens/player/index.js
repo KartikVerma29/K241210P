@@ -6,7 +6,6 @@ import SongCard from "../../components/songCard";
 import Queue from "../../components/queue";
 import AudioPLayer from "../../components/audioPlayer/index";
 import Widgets from "../../components/widgets";
-import getYoutubeVideo from "../../utils/getYoutubeVideo";
 
 export default function Player() {
   const location = useLocation();
@@ -15,13 +14,17 @@ export default function Player() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const fetchTracks = async () => {
+    const loadTracks = async () => {
+      // If enhanced tracks were passed from library
+      if (location.state?.tracks) {
+        setTracks(location.state.tracks);
+        setCurrentTrack(location.state.tracks[0]);
+        return;
+      }
+
       try {
         const res = await apiClient.get("playlists/" + location.state?.id + "/tracks", {
-          params: {
-            market: "from_token",
-            limit: 50,
-          },
+          params: { market: "from_token", limit: 50 },
         });
 
         const items = res.data?.items
@@ -29,10 +32,10 @@ export default function Player() {
             const track = item.track;
             return {
               ...track,
-              preview_url: track?.preview_url || track?.external_urls?.spotify,
+              preview_url: track?.preview_url || null,
             };
           })
-          ?.filter((item) => item.preview_url);
+          ?.filter((item) => item.name); 
 
         setTracks(items || []);
         setCurrentTrack(items?.[0] || null);
@@ -40,28 +43,18 @@ export default function Player() {
         console.error("Failed to fetch playlist tracks:", err);
       }
     };
-    fetchTracks();
+
+    loadTracks();
   }, [location.state]);
 
   useEffect(() => {
     setCurrentTrack(tracks[currentIndex] || null);
   }, [currentIndex, tracks]);
 
-  useEffect(() => {
-    const testSearch = async () => {
-      if (currentTrack?.name && currentTrack?.artists?.[0]?.name) {
-        const query = `${currentTrack.name} ${currentTrack.artists[0].name}`;
-        const videoId = await getYoutubeVideo(query);
-        console.log("YT Video ID:", videoId);
-      }
-    };
-    testSearch();
-  }, [currentTrack]);
-  
-
   return (
     <div className="screen-container flex">
       <div className="left-player-body">
+        
         <AudioPLayer
           currentTrack={currentTrack}
           total={tracks}

@@ -4,11 +4,27 @@ import { IconContext } from "react-icons";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import "./library.css";
+import getYoutubeVideo from "../../utils/getYoutubeVideo";
+
+// Enhance tracks with YouTube video ID
+const enhanceTracksWithYoutube = async (tracks) => {
+  const updatedTracks = await Promise.all(
+    tracks.map(async (track) => {
+      try {
+        const searchQuery = `${track.name}`;
+        const videoId = await getYoutubeVideo(searchQuery);
+        return { ...track, yt_video_id: videoId };
+      } catch (err) {
+        console.error("Error fetching YouTube video:", err);
+        return { ...track, yt_video_id: null };
+      }
+    })
+  );
+  return updatedTracks;
+};
 
 export default function Library() {
   const [playlists, setPlaylists] = useState([]);
-
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,29 +32,34 @@ export default function Library() {
     APIKit.get("me/playlists")
       .then((response) => setPlaylists(response?.data?.items || []))
       .catch((error) => console.error("Error fetching playlists:", error));
-
-   
-   
   }, []);
 
-  // Fetch tracks for a specific playlist and get preview URL
-  const fetchPlaylistTracks = (playlistId) => {
-    APIKit.get(`playlists/${playlistId}/tracks`)
-      .then((response) => {
-        const tracks = response?.data?.items || [];
-        console.log("Fetched tracks:", tracks);
-        const tracksWithPreview = tracks.map((trackItem) => ({
-          name: trackItem.track.name,
-          preview_url: trackItem.track.preview_url,
-        }));
-        console.log("Tracks with Preview URL:", tracksWithPreview);
-      })
-      .catch((error) => console.error("Error fetching playlist tracks:", error));
+  // Fetch tracks from playlist and enhance with YouTube video ID
+  const fetchPlaylistTracks = async (playlistId) => {
+    try {
+      const response = await APIKit.get(`playlists/${playlistId}/tracks`);
+      const tracks = response?.data?.items || [];
+      console.log("Fetched tracks:", tracks);
+
+      const tracksWithPreview = tracks.map((trackItem) => ({
+        name: trackItem.track.name,
+        preview_url: trackItem.track.preview_url,
+        artists: trackItem.track.artists,
+      }));
+
+      console.log("Tracks with Preview URL:", tracksWithPreview);
+
+      const enhancedTracks = await enhanceTracksWithYoutube(tracksWithPreview);
+      console.log("Enhanced Tracks with YouTube IDs:", enhancedTracks);
+
+      navigate("/player", { state: { id: playlistId, tracks: enhancedTracks } });
+    } catch (error) {
+      console.error("Error fetching playlist tracks:", error);
+    }
   };
 
   const playPlaylist = (id) => {
-    fetchPlaylistTracks(id);  // Fetch tracks for preview URL
-    navigate("/player", { state: { id: id } });
+    fetchPlaylistTracks(id);
   };
 
   return (
@@ -68,8 +89,6 @@ export default function Library() {
         ) : (
           <div className="no-playlists">Loading playlists or none found.</div>
         )}
-
-      
       </div>
     </div>
   );

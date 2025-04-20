@@ -1,6 +1,6 @@
 
 export const searchYouTube = async (query) => {
-    const API_KEY = process.env.REACT_APP_YT_API_KEY;
+    const API_KEY = "AIzaSyD2ilK9Op8DwU0Bz9a0sWpc2Je5MofykRs";
     const res = await fetch(
       `https://www.googleapis.com/youtube/v3/search?` +
       `part=snippet&q=${encodeURIComponent(query)}` +
