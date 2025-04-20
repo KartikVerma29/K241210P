@@ -1,29 +1,43 @@
+/* components/auth/auth.css */
+
 .login-page {
-  background-color: #1f1f1f;
-  height: 100vh;
-  width: 100vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #141E30, #243B55);
+  color: white;
   overflow: hidden;
-  flex-direction: column;
 }
 
 .logo {
-  width: 30%;
+  width: 150px;
+  margin-bottom: 2rem;
 }
 
 .login-btn {
-  width: 200px;
-  padding: 15px 0px;
-  text-align: center;
-  background-color: #fefefe;
-  border-radius: 50px;
-  color: #1f1f1f;
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1rem;
   font-weight: 600;
-  margin-top: 20%;
+  color: #141E30;
+  background: #43cea2;
+  background: linear-gradient(135deg, #43cea2, #185a9d);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
