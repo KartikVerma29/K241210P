@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import ReactPlayer from "react-player/youtube";
 import "./audioPlayer.css";
 import Controls from "./controls";
 import ProgressCircle from "./progressCircle";
 import WaveAnimation from "./waveAnimation";
-import getYoutubeVideo from "../../utils/getYoutubeVideo";
 
 export default function AudioPLayer({
   currentTrack,
@@ -11,61 +11,8 @@ export default function AudioPLayer({
   setCurrentIndex,
   total,
 }) {
+  console.log("Current Track:", currentTrack);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [trackProgress, setTrackProgress] = useState(0);
-
-  const audioSrc = currentTrack?.preview_url || "";
-
-
-
-  const audioRef = useRef(new Audio(audioSrc));
-  const intervalRef = useRef();
-  const isReady = useRef(false);
-
-  const duration = audioRef.current?.duration || 30;
-  const currentPercentage = duration ? (trackProgress / duration) * 100 : 0;
-
-  const startTimer = () => {
-    clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      if (audioRef.current.ended) {
-        handleNext();
-      } else {
-        setTrackProgress(audioRef.current.currentTime);
-      }
-    }, 1000);
-  };
-
-  useEffect(() => {
-    audioRef.current.pause();
-    audioRef.current = new Audio(audioSrc);
-    setTrackProgress(0);
-
-    if (isReady.current && isPlaying) {
-      audioRef.current.play();
-      startTimer();
-    } else {
-      isReady.current = true;
-    }
-  }, [currentIndex]);
-
-  useEffect(() => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.play().catch(console.error);
-      startTimer();
-    } else {
-      clearInterval(intervalRef.current);
-      audioRef.current.pause();
-    }
-  }, [isPlaying]);
-
-  useEffect(() => {
-    return () => {
-      audioRef.current.pause();
-      clearInterval(intervalRef.current);
-    };
-  }, []);
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % total.length);
@@ -78,13 +25,15 @@ export default function AudioPLayer({
   const addZero = (n) => (n > 9 ? n : "0" + n);
 
   const imageUrl = currentTrack?.album?.images?.[0]?.url;
-  const artists = currentTrack?.album?.artists?.map((a) => a.name).join(" | ") || "Unknown Artist";
+  console.log("Image URL:", imageUrl);
+  const artists =
+    currentTrack?.album?.artists?.map((a) => a.name).join(" | ") || "Unknown Artist";
 
   return (
     <div className="player-body flex">
       <div className="player-left-body">
         <ProgressCircle
-          percentage={currentPercentage}
+          percentage={100} // Full circle since we removed preview duration tracking
           isPlaying={isPlaying}
           image={imageUrl}
           size={300}
@@ -96,9 +45,9 @@ export default function AudioPLayer({
         <p className="song-artist">{artists}</p>
         <div className="player-right-bottom flex">
           <div className="song-duration flex">
-            <p className="duration">0:{addZero(Math.round(trackProgress))}</p>
+            <p className="duration">0:00</p>
             <WaveAnimation isPlaying={isPlaying} />
-            <p className="duration">0:30</p>
+            <p className="duration">YT</p>
           </div>
           <Controls
             isPlaying={isPlaying}
@@ -109,6 +58,16 @@ export default function AudioPLayer({
           />
         </div>
       </div>
+
+     
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=${currentTrack?.yt_video_id}`}
+        playing={isPlaying}
+        controls={false}
+        width="0"
+        height="0"
+        onEnded={handleNext}
+      />
     </div>
   );
 }
