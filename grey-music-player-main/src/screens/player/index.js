@@ -12,7 +12,7 @@ export default function Player() {
   const [tracks, setTracks] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+  const [temporaryTracks, setTemporaryTracks] = useState([]);
   
   useEffect(() => {
     const loadTracks = async () => {
@@ -49,13 +49,17 @@ export default function Player() {
 
   useEffect(() => {
     setCurrentTrack(tracks[currentIndex] || null);
+    console.log("Current Index:", currentIndex);
+  console.log("Current Track Data:", tracks[currentIndex]);
+  console.log("Album Data:", tracks[currentIndex]?.album);
   }, [currentIndex, tracks]);
-  console.log("Current Track:", currentTrack);
+
+  
+
 
   return (
     <div className="screen-container flex">
-      <div className="left-player-body">
-        
+      <div className="left-player-body"> 
         <AudioPLayer
           currentTrack={currentTrack}
           total={tracks}
@@ -66,10 +70,17 @@ export default function Player() {
           <Widgets artistID={currentTrack.album.artists[0].id} />
         )}
       </div>
+
       <div className="right-player-body">
-        <SongCard album={currentTrack?.album} />
+      {currentTrack?.album && Object.keys(currentTrack.album).length > 0 && (
+    <SongCard 
+      album={currentTrack.album} 
+      key={currentTrack.album.id || currentTrack.id} 
+    />
+  )}
         <Queue tracks={tracks} setCurrentIndex={setCurrentIndex} />
       </div>
+      
     </div>
   );
 }

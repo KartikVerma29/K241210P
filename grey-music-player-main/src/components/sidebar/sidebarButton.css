@@ -2,7 +2,7 @@ a {
     text-decoration: none !important;
 }
 
-.btn-body{
+.btn-body {
     height: 80px;
     width: 80px;
     border-radius: 20px;
@@ -13,21 +13,35 @@ a {
     flex-direction: column;
     margin: 5px auto;
     transition: all 0.2s ease;
-    background-color: rgba(244, 187, 146,0.0);
+    background-color: rgba(244, 187, 146, 0.0);
 }
 
-.btn-body.active{
+.btn-body.active {
     background-color: rgb(0, 0, 0);
     color: #fff;
     transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.btn-body:hover{
+.btn-body:hover {
+    background-color: rgba(244, 187, 146, 0.1);
     color: #fff;
 }
 
-.btn-title{
+.btn-title {
     margin: 4px auto;
     font-weight: 600;
     font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .btn-body {
+        height: 60px;
+        width: 60px;
+    }
+
+    .btn-title {
+        font-size: 12px;
+    }
 }

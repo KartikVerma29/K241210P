@@ -6,8 +6,11 @@ import "./songCard.css";
 export default function SongCard({ album }) {
   if (!album) return null;
   console.log("Album Data:", album);
-  const imageUrl = album?.images?.[0]?.url;
+
+  const imageUrl = album?.images?.[0]?.url || album?.imageUrl || null;
+  console.log("Album Data:", album);
   console.log("Album Image URL:", imageUrl);
+
 
 
   return (

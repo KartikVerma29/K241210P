@@ -34,7 +34,7 @@ export default function Library() {
       .catch((error) => console.error("Error fetching playlists:", error));
   }, []);
 
-  // Fetch tracks from playlist and enhance with YouTube video ID
+  
   const fetchPlaylistTracks = async (playlistId) => {
     try {
       const response = await APIKit.get(`playlists/${playlistId}/tracks`);
@@ -45,6 +45,15 @@ export default function Library() {
         name: trackItem.track.name,
         preview_url: trackItem.track.preview_url,
         artists: trackItem.track.artists,
+
+        album: {
+          name: trackItem.track.album.name,
+          images: trackItem.track.album.images,
+          artists: trackItem.track.album.artists
+        },
+
+        imageUrl : trackItem.track.album.images[0]?.url
+
       }));
 
       console.log("Tracks with Preview URL:", tracksWithPreview);
