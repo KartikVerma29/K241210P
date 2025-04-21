@@ -1,13 +1,25 @@
 import axios from "axios";
 
+const youtubeCache = {};
+let queryCache = 0;
+const QUERY_LIMIT = 500;
+
 const getYoutubeVideo = async (query) => {
-  const apiKey = "AIzaSyD2ilK9Op8DwU0Bz9a0sWpc2Je5MofykRs";
+  if (youtubeCache[query]) {
+    return youtubeCache[query];
+  }
+  if (queryCache >= QUERY_LIMIT) {
+    console.log("Query limit reached. Returning null.");
+    return null;
+  }
+  const apiKey = "AIzaSyBRJi99fgRGDbrT5ggD6RVwNB1dsZPDia8";
   const url = `https://www.googleapis.com/youtube/v3/search`;
   
-  console.log("YouTube API Key:", apiKey);
-  console.log("seaqrch query:", query);
+  // console.log("YouTube API Key:", apiKey);
+  // console.log("seaqrch query:", query);
 
   try {
+    queryCache++;
     const { data } = await axios.get(url, {
       params: {
         part: "snippet",
@@ -19,9 +31,11 @@ const getYoutubeVideo = async (query) => {
       },
     });
 
-    console.log("YouTube API Response:", data);
+    // console.log("YouTube API Response:", data);
+    const videoId = data.items[0]?.id?.videoId || null;
+    youtubeCache[query] = videoId;
 
-    return data.items[0]?.id?.videoId || null;
+    return videoId;
   } catch (err) {
     console.error("YouTube API Error:", err);
     return null;

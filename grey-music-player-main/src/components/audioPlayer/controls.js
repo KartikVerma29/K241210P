@@ -17,9 +17,7 @@ export default function Controls({
           <IoPlaySkipBack />
         </div>
         <div
-          className={
-            isPlaying ? "play-pause-btn flex active" : "play-pause-btn flex"
-          }
+          className={`play-pause-btn flex ${isPlaying ? "playing" : "paused"}`}
           onClick={() => setIsPlaying(!isPlaying)}
         >
           {isPlaying ? <FaPause /> : <IoPlay />}
