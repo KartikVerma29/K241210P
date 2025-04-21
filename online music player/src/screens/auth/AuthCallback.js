@@ -1,4 +1,4 @@
-// src/auth/AuthCallback.js
+
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { setClientToken } from "../../spotify";
@@ -11,7 +11,7 @@ export default function AuthCallback() {
     if (token) {
       localStorage.setItem("token", token);
       setClientToken(token);
-      navigate("/feed");  // or your default protected route
+      navigate("/feed"); 
     } else {
       navigate("/login");
     }

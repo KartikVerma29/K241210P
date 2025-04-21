@@ -16,7 +16,9 @@ export default function Queue({ tracks, setCurrentIndex }) {
                 onClick={() => setCurrentIndex(index)}
               >
                 <p className="track-name">{trackName}</p>
-                <p>0:30</p>
+                <p className="track-artist">
+                  {item?.track?.artists?.map((artist) => artist.name).join(", ")}
+                </p>
               </div>
             );
           })}

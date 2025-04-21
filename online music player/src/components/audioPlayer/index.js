@@ -36,7 +36,7 @@ export default function AudioPLayer({
     <div className="player-body flex">
       <div className="player-left-body">
         <ProgressCircle
-          percentage={100} // Full circle since we removed preview duration tracking
+          percentage={100} 
           isPlaying={isPlaying}
           image={imageUrl}
           size={300}

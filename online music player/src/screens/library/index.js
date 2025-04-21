@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./library.css";
 import getYoutubeVideo from "../../utils/getYoutubeVideo";
 
-// Enhance tracks with YouTube video ID
+
 const enhanceTracksWithYoutube = async (tracks) => {
   const updatedTracks = await Promise.all(
     tracks.map(async (track) => {
@@ -28,7 +28,6 @@ export default function Library() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user's playlists
     APIKit.get("me/playlists")
       .then((response) => setPlaylists(response?.data?.items || []))
       .catch((error) => console.error("Error fetching playlists:", error));

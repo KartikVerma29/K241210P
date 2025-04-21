@@ -21,7 +21,7 @@ const apiClient = axios.create({
   baseURL: "https://api.spotify.com/v1/"
 });
 
-// Add the token dynamically to requests
+
 export const setClientToken = (token) => {
   apiClient.interceptors.request.use(function (config) {
     if (!token) {
@@ -29,7 +29,7 @@ export const setClientToken = (token) => {
       return config;
     }
 
-    // Log the request URL and token for debugging
+    
     // console.log("Requesting URL:", config.url);
     // console.log("Using token:", token);
 
@@ -38,7 +38,7 @@ export const setClientToken = (token) => {
   });
 };
 
-// Optional: Add a response interceptor to handle 404 and other errors
+
 apiClient.interceptors.response.use(
   response => response,
   error => {
